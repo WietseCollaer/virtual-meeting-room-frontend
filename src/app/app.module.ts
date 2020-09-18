@@ -4,10 +4,14 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
+import { MeetingRoomOverviewComponent } from './components/meeting-room-overview/meeting-room-overview.component';
+import { SetupUserComponent } from './components/setup-user-component/setup-user.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MeetingRoomOverviewComponent,
+    SetupUserComponent
   ],
   imports: [
     BrowserModule,
