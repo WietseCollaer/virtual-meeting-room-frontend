@@ -1,1 +1,9 @@
-<p>meeting-room-overview works!</p>
+<div *ngFor="let meetingRoom of meetingRooms" style="margin-bottom: 20px">
+  <p>Name: {{meetingRoom.name}}</p>
+
+  <div *ngFor="let userInRoom of usersInMeetingRoom(meetingRoom.id)">
+    <p>{{userInRoom.name}}</p>
+  </div>
+
+  <button (click)="goToMeetingRoom()">Join meetingroom</button>
+</div>

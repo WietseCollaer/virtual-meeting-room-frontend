@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MeetingRoomWebSocketService} from './service/meeting-room-web-socket.service';
+import {MeetingRoomService} from './service/meeting-room.service';
 import {MeetingRoom} from './model/meeting-room';
 
 @Component({
@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
 
   meetingRooms: MeetingRoom[];
 
-  constructor(private meetingRoomWebSocketService: MeetingRoomWebSocketService) {
+  constructor(private meetingRoomWebSocketService: MeetingRoomService) {
   }
 
   ngOnInit(): void {

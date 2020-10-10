@@ -9,6 +9,9 @@ const routes: Routes = [
   },
   {
     path: '', component: SetupUserComponent
+  },
+  {
+    path: '**', component: SetupUserComponent
   }
 ];
 

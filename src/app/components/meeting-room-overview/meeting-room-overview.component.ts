@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {User} from '../../model/user';
+import {MeetingRoomService} from '../../service/meeting-room.service';
+import {MeetingRoom} from '../../model/meeting-room';
+import {MeetingRoomWebSocketService} from '../../service/meeting-room-web-socket.service';
 
 @Component({
   selector: 'app-meeting-room-overview',
@@ -7,9 +11,42 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MeetingRoomOverviewComponent implements OnInit {
 
-  constructor() { }
+  user: User;
+  meetingRooms: MeetingRoom[];
+  private readonly DEFAULT_MEETING_ROOM_NAME = 'Hallway';
 
-  ngOnInit(): void {
+  constructor(private meetingRoomService: MeetingRoomService,
+              private meetingRoomWebSocketService: MeetingRoomWebSocketService) {
   }
 
+  ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.meetingRoomService.findAllMeetingRooms()
+      .subscribe(meetingRooms => {
+        this.meetingRooms = meetingRooms;
+        this.meetingRoomWebSocketService.moveUserToRoom({
+          user: this.user,
+          newMeetingRoomId: this.findIdOfDefaultMeetingRoom().id
+        });
+      });
+  }
+
+  private findIdOfDefaultMeetingRoom(): MeetingRoom {
+    return this.meetingRooms
+      .find(room => room.name === this.DEFAULT_MEETING_ROOM_NAME);
+  }
+
+  usersInMeetingRoom(meetingRoomId: string): User[] {
+    console.log('Users in room',
+      this.meetingRoomWebSocketService.users
+        .filter(user => user.meetingRoom.id === meetingRoomId)
+    );
+
+    return this.meetingRoomWebSocketService.users
+      .filter(user => user.meetingRoom.id === meetingRoomId);
+  }
+
+  goToMeetingRoom(): void {
+
+  }
 }

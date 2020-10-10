@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import { MeetingRoomOverviewComponent } from './components/meeting-room-overview/meeting-room-overview.component';
 import { SetupUserComponent } from './components/setup-user-component/setup-user.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { SetupUserComponent } from './components/setup-user-component/setup-user
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
