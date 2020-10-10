@@ -24,10 +24,10 @@ export class MeetingRoomOverviewComponent implements OnInit {
     this.meetingRoomService.findAllMeetingRooms()
       .subscribe(meetingRooms => {
         this.meetingRooms = meetingRooms;
-        this.meetingRoomWebSocketService.moveUserToRoom({
-          user: this.user,
-          newMeetingRoomId: this.findIdOfDefaultMeetingRoom().id
-        });
+        // this.meetingRoomWebSocketService.moveUserToRoom({
+        //   user: this.user,
+        //   newMeetingRoomId: this.findIdOfDefaultMeetingRoom().id
+        // });
       });
   }
 
@@ -46,7 +46,15 @@ export class MeetingRoomOverviewComponent implements OnInit {
       .filter(user => user.meetingRoom.id === meetingRoomId);
   }
 
-  goToMeetingRoom(): void {
+  goToMeetingRoom(meetingRoomId: string): void {
+    const meetingRoom = this.meetingRooms
+      .find(m => m.id === meetingRoomId);
 
+    window.open(meetingRoom.url);
+
+    this.meetingRoomWebSocketService.moveUserToRoom({
+      user: this.user,
+      newMeetingRoomId: meetingRoomId
+    });
   }
 }
